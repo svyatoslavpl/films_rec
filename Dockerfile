@@ -1,14 +1,16 @@
-FROM python:3.10.9
-
-# Set the working directory to /app
+FROM python:3.11
 WORKDIR /app
 
-# Copy the current directory contents into the container at /app
+
+COPY requirements.txt .
+
+
+RUN pip install -r requirements.txt
+
 COPY . /app
 
-# Install any needed packages specified in requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Run main.py when the container launches
-CMD ["streamlit", "run", "app.py"]
+EXPOSE 8501
 
+
+CMD ["streamlit", "run", "main.py", "--server.port", "8501"]
